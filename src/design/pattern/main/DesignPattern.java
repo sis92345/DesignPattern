@@ -7,13 +7,21 @@ import design.pattern.command.command.LightOffCommand;
 import design.pattern.command.command.LightOnCommand;
 import design.pattern.command.receiver.Garage;
 import design.pattern.command.receiver.Light;
+import design.pattern.observer.display.CurrentConditionDisplay;
+import design.pattern.observer.display.ForecastDisplay;
+import design.pattern.observer.display.StatisticDisplay;
+import design.pattern.observer.subject.WeatherData;
 
 public class DesignPattern {
 		
-		public static void main( String[] args ) {
-		
+		public static void main( String[] args ) throws InterruptedException {
+				
+				System.out.println( "================ 커맨더 패턴" );
 				// 1. 디자인 패턴 테스트 : 커멘드 패턴
 				testCommandPattern();
+				
+				System.out.println( "================ 옵저버 패턴" );
+				testObserverPattern();
 		}
 		
 		/**
@@ -33,5 +41,31 @@ public class DesignPattern {
 				invoker.pressedButton( 0 , "off" );
 				invoker.pressedButton( 1 , "on" );
 				invoker.pressedButton( 5 , "on" );
+		}
+		
+		/**
+		 * 디자인 패턴 테스트 : 옵저버 패턴
+		 * */
+		private static void testObserverPattern() throws InterruptedException {
+				
+				// Subject
+				WeatherData weatherData = new WeatherData();
+				
+				CurrentConditionDisplay cur = new CurrentConditionDisplay();
+				StatisticDisplay stat = new StatisticDisplay();
+				ForecastDisplay fore = new ForecastDisplay();
+				CurrentConditionDisplay pullableObservber = new CurrentConditionDisplay( weatherData );
+				
+				weatherData.registerObserver( cur )
+							.registerObserver( stat )
+							.registerObserver( fore );
+				
+				weatherData.setMeasurements( 21.7 , 3.1 , 4.0 );
+				weatherData.setMeasurements( 27.3 , 2.0 , 5.2 );
+				weatherData.setMeasurements( 31.5 , 7.1 , 7.1 );
+				
+				System.out.println( "PULL 방식 옵저버" );
+				Thread.sleep( 2000 );
+				pullableObservber.pull();
 		}
 }
