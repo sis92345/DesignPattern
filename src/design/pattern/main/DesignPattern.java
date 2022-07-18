@@ -11,7 +11,14 @@ import design.pattern.decorator.Beverage.Beverage;
 import design.pattern.decorator.Beverage.Espresso;
 import design.pattern.decorator.decorator.Mocha;
 import design.pattern.decorator.decorator.Soy;
-import design.pattern.decorator.decorator.Whip;
+import design.pattern.factory.abstractfactory.factory.CaliforniaPizzaFactory;
+import design.pattern.factory.abstractfactory.factory.SeoulPizzaFactory;
+import design.pattern.factory.abstractfactory.product.CheesePizza;
+import design.pattern.factory.abstractfactory.product.Pizza;
+import design.pattern.factory.simplefactory.Logic.PizzaStore;
+import design.pattern.factory.simplefactory.factory.ChicagoPizzaFactory;
+import design.pattern.factory.simplefactory.factory.NyPizzaFactory;
+import design.pattern.factory.simplefactory.factory.SimplePizzaFactory;
 import design.pattern.observer.display.CurrentConditionDisplay;
 import design.pattern.observer.display.ForecastDisplay;
 import design.pattern.observer.display.StatisticDisplay;
@@ -28,8 +35,11 @@ public class DesignPattern {
 				//System.out.println( "================ 옵저버 패턴" );
 				//testObserverPattern();
 				
-				System.out.println( "================ 데코레이터 패턴" );
-				testDecoratorPattern();
+				//System.out.println( "================ 데코레이터 패턴" );
+				//testDecoratorPattern();
+				
+				System.out.println( "================ 펙토리 패턴" );
+				testFactoryPattern();
 		}
 		
 		/**
@@ -96,5 +106,35 @@ public class DesignPattern {
 				
 				System.out.println( whipSoyEspresso.getDescription() + " $ " + whipSoyEspresso.cost() );
 				
+		}
+		
+		/**
+		 * 디자인 패턴 테스트 : 펙토리 패턴
+		 *
+		 * */
+		public static void testFactoryPattern() {
+				
+				// 여러 팩토리를 사용하는  예
+				PizzaStore nyBranch = new PizzaStore( new NyPizzaFactory() );
+				PizzaStore chicagoBranch = new PizzaStore( new ChicagoPizzaFactory() );
+				
+				nyBranch.orderPizza( "cheese" );
+				chicagoBranch.orderPizza( "cheese" );
+				
+				// 정적 메소드를 사용하는 예
+				SimplePizzaFactory.createFastPizza( "pepperoni" );
+				
+				// 추상 팩토리
+				Pizza cheesePizza = new CheesePizza( new CaliforniaPizzaFactory() );
+				cheesePizza.prepare();
+				cheesePizza.cut();
+				cheesePizza.box();
+				
+				Pizza potatoPizza = new CheesePizza( new SeoulPizzaFactory() );
+				potatoPizza.prepare();
+				potatoPizza.cut();
+				potatoPizza.box();
+				System.out.println( cheesePizza.toString() );
+				System.out.println( potatoPizza.toString() );
 		}
 }
