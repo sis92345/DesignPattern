@@ -1,5 +1,11 @@
 package design.pattern.main;
 
+import design.pattern.adaptor.Turkey.Turkey;
+import design.pattern.adaptor.Turkey.WildTurkey;
+import design.pattern.adaptor.Turkey.adaptor.DuckAdaptor;
+import design.pattern.adaptor.duck.Duck;
+import design.pattern.adaptor.duck.MallardDuck;
+import design.pattern.adaptor.duck.adaptor.TurkeyAdapter;
 import design.pattern.command.Invoker;
 import design.pattern.command.command.GarageDownCommand;
 import design.pattern.command.command.GarageUpCommand;
@@ -11,6 +17,8 @@ import design.pattern.decorator.Beverage.Beverage;
 import design.pattern.decorator.Beverage.Espresso;
 import design.pattern.decorator.decorator.Mocha;
 import design.pattern.decorator.decorator.Soy;
+import design.pattern.facade.HomeTheaterFacade;
+import design.pattern.facade.dto.*;
 import design.pattern.factory.abstractfactory.factory.CaliforniaPizzaFactory;
 import design.pattern.factory.abstractfactory.factory.SeoulPizzaFactory;
 import design.pattern.factory.abstractfactory.product.CheesePizza;
@@ -40,6 +48,9 @@ public class DesignPattern {
 				
 				System.out.println( "================ 펙토리 패턴" );
 				testFactoryPattern();
+				
+				System.out.println( "================ 어댑터 패턴" );
+				testAdaptorPattern();
 		}
 		
 		/**
@@ -99,10 +110,10 @@ public class DesignPattern {
 				System.out.println( deCaf.getDescription() + " $ " + deCaf.cost() );
 				
 				// 데코레이터 : 두유에 휘핑 두번 추가
-				Beverage whipSoyEspresso = new Espresso();
+				Beverage whipSoyEspresso = new Espresso(); // beverage
 				whipSoyEspresso.setSize( Beverage.Size.TALL );
-				whipSoyEspresso = new Soy( whipSoyEspresso );
-				whipSoyEspresso = new Mocha( whipSoyEspresso );
+				whipSoyEspresso = new Soy( whipSoyEspresso ); // soy -> beverage
+				whipSoyEspresso = new Mocha( whipSoyEspresso ); // mocha -> soy -> beverage
 				
 				System.out.println( whipSoyEspresso.getDescription() + " $ " + whipSoyEspresso.cost() );
 				
@@ -136,5 +147,41 @@ public class DesignPattern {
 				potatoPizza.box();
 				System.out.println( cheesePizza.toString() );
 				System.out.println( potatoPizza.toString() );
+		}
+		
+		/**
+		 * 어댑터 패턴
+		 * */
+		public static void testAdaptorPattern() {
+				
+				Duck duck = new TurkeyAdapter( new WildTurkey() );
+				
+				duck.quack();
+				duck.fly();
+				
+				Turkey turkey = new DuckAdaptor( new MallardDuck() );
+				turkey.gobble();
+				turkey.fly();
+		}
+		
+		/**
+		 * 파사드 패턴
+		 * */
+		public static void testFacadePattern() {
+				
+				Amplifier amp = new Amplifier("Top-O-Line Amplifier");
+				Tuner tuner = new Tuner();
+				DvdPlayer dvd = new DvdPlayer("Top-O-Line DVD Player", amp);
+				CdPlayer cd = new CdPlayer("Top-O-Line CD Player", amp);
+				Projector projector = new Projector("Top-O-Line Projector", dvd);
+				TheaterLights lights = new TheaterLights( "test" );
+				Screen screen = new Screen("Theater Screen");
+				PopcornPopper popper = new PopcornPopper("Popcorn Popper");
+				
+				HomeTheaterFacade homeTheater =
+							new HomeTheaterFacade(amp, tuner, dvd, cd,
+										projector, screen, lights, popper);
+				
+				homeTheater.watchMovie( "무비이" );
 		}
 }
