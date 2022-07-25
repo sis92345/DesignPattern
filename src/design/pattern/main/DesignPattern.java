@@ -31,6 +31,8 @@ import design.pattern.observer.display.CurrentConditionDisplay;
 import design.pattern.observer.display.ForecastDisplay;
 import design.pattern.observer.display.StatisticDisplay;
 import design.pattern.observer.subject.WeatherData;
+import design.pattern.template.template.Coffee;
+import design.pattern.template.template.Tea;
 
 public class DesignPattern {
 		
@@ -51,6 +53,9 @@ public class DesignPattern {
 				
 				System.out.println( "================ 어댑터 패턴" );
 				testAdaptorPattern();
+				
+				System.out.println( "================ 템플릿 메소드 패턴" );
+				testTemplateMethodPattern();
 		}
 		
 		/**
@@ -183,5 +188,17 @@ public class DesignPattern {
 										projector, screen, lights, popper);
 				
 				homeTheater.watchMovie( "무비이" );
+		}
+		
+		/**
+		 * 템플릿 메소드 패턴
+		 * */
+		public static void testTemplateMethodPattern() {
+				
+				Coffee coffee = new Coffee();
+				coffee.prepareRecipe();
+				
+				Tea tea = new Tea();
+				tea.prepareRecipe();
 		}
 }
