@@ -27,6 +27,9 @@ import design.pattern.factory.simplefactory.Logic.PizzaStore;
 import design.pattern.factory.simplefactory.factory.ChicagoPizzaFactory;
 import design.pattern.factory.simplefactory.factory.NyPizzaFactory;
 import design.pattern.factory.simplefactory.factory.SimplePizzaFactory;
+import design.pattern.iterator_composit.dto.DinerMenu;
+import design.pattern.iterator_composit.dto.PancakeHouseMenu;
+import design.pattern.iterator_composit.dto.Waitress;
 import design.pattern.observer.display.CurrentConditionDisplay;
 import design.pattern.observer.display.ForecastDisplay;
 import design.pattern.observer.display.StatisticDisplay;
@@ -48,14 +51,17 @@ public class DesignPattern {
 				//System.out.println( "================ 데코레이터 패턴" );
 				//testDecoratorPattern();
 				
-				System.out.println( "================ 펙토리 패턴" );
-				testFactoryPattern();
+//				System.out.println( "================ 펙토리 패턴" );
+//				testFactoryPattern();
+//
+//				System.out.println( "================ 어댑터 패턴" );
+//				testAdaptorPattern();
+//
+//				System.out.println( "================ 템플릿 메소드 패턴" );
+//				testTemplateMethodPattern();
 				
-				System.out.println( "================ 어댑터 패턴" );
-				testAdaptorPattern();
-				
-				System.out.println( "================ 템플릿 메소드 패턴" );
-				testTemplateMethodPattern();
+				System.out.println( "================ 반복자 패턴" );
+				testIteratorPattern();
 		}
 		
 		/**
@@ -200,5 +206,17 @@ public class DesignPattern {
 				
 				Tea tea = new Tea();
 				tea.prepareRecipe();
+		}
+		
+		/**
+		 * 반복자 패턴
+		 * */
+		public static void testIteratorPattern() {
+				
+				PancakeHouseMenu pancakeHouseMenu = new PancakeHouseMenu();
+				DinerMenu dinerMenu = new DinerMenu();
+				Waitress waitress = new Waitress( pancakeHouseMenu, dinerMenu );
+				
+				waitress.printMenu();
 		}
 }
