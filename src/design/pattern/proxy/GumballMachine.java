@@ -1,6 +1,6 @@
-package design.pattern.state;
+package design.pattern.proxy;
 
-import design.pattern.state.state.*;
+import design.pattern.proxy.state.*;
 
 /**
  * 이 코드는 아래와 같은 점 때문에 좋지 않다.
@@ -23,7 +23,9 @@ public class GumballMachine {
 		State state;
 		
 		int count = 0;
-		public GumballMachine( int numberGumballs ) {
+		
+		String location;	// 위치
+		public GumballMachine(  String location , int numberGumballs ) {
 				
 				noQuarterState = new NoQuarterState( this );
 				soldState = new SoldState( this );
@@ -31,7 +33,7 @@ public class GumballMachine {
 				hasQuarterState = new HasQuarterState( this );
 				
 				this.count = numberGumballs;
-				
+				this.location = location;
 				if ( numberGumballs > 0 ) {
 						state = noQuarterState;
 				}
@@ -64,16 +66,16 @@ public class GumballMachine {
 				return state;
 		}
 		
-		public void setCount( int count ) {
-				this.count = count;
-		}
-		
 		public State getNoQuarterState() {
 				return noQuarterState;
 		}
 		
 		public State getHasQuarterState() {
 				return hasQuarterState;
+		}
+		
+		public void setCount( int count ) {
+				this.count = count;
 		}
 		
 		public State getSoldOutState() {
@@ -86,5 +88,9 @@ public class GumballMachine {
 		
 		public int getCount() {
 				return count;
+		}
+		
+		public String getLocation() {
+				return location;
 		}
 }

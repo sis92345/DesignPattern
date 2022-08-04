@@ -1,6 +1,6 @@
-package design.pattern.state.state;
+package design.pattern.proxy.state;
 
-import design.pattern.state.GumballMachine;
+import design.pattern.proxy.GumballMachine;
 
 /**
  * 동전이 없는 상태
@@ -41,6 +41,7 @@ public class SoldState implements State {
 				else  {
 					gumballMachine.setState( gumballMachine.getSoldOutState() );
 				}
+				
 				gumballMachine.setCount( gumballMachine.getCount()-1 );
 		}
 }

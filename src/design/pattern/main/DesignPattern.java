@@ -34,6 +34,8 @@ import design.pattern.observer.display.CurrentConditionDisplay;
 import design.pattern.observer.display.ForecastDisplay;
 import design.pattern.observer.display.StatisticDisplay;
 import design.pattern.observer.subject.WeatherData;
+import design.pattern.proxy.GumballMonitor;
+import design.pattern.state.GumballMachine;
 import design.pattern.template.template.Coffee;
 import design.pattern.template.template.Tea;
 
@@ -60,8 +62,14 @@ public class DesignPattern {
 //				System.out.println( "================ 템플릿 메소드 패턴" );
 //				testTemplateMethodPattern();
 				
-				System.out.println( "================ 반복자 패턴" );
-				testIteratorPattern();
+//				System.out.println( "================ 반복자 패턴" );
+//				testIteratorPattern();
+				
+				System.out.println( "================ 상태 패턴" );
+				testStatePattern();
+				
+				System.out.println( "================ 프록시 패턴" );
+				testProxyPattern();
 		}
 		
 		/**
@@ -218,5 +226,28 @@ public class DesignPattern {
 				Waitress waitress = new Waitress( pancakeHouseMenu, dinerMenu );
 				
 				waitress.printMenu();
+		}
+		
+		/**
+		 * 상태 패턴
+		 * */
+		public static void testStatePattern() {
+				
+				GumballMachine gumballMachine_empty = new GumballMachine( 0 );
+				gumballMachine_empty.ejectQuarter();
+				
+				GumballMachine gumballMachine = new GumballMachine( 10 );
+				gumballMachine.insertQuarter();
+				gumballMachine.turnCrank();
+		}
+		
+		public static void testProxyPattern() {
+				
+				design.pattern.proxy.GumballMachine gumballMachine = new design.pattern.proxy.GumballMachine(  "홍대" , 10 );
+				gumballMachine.insertQuarter();
+				gumballMachine.turnCrank();
+				
+				GumballMonitor gumballMonitor = new GumballMonitor( gumballMachine );
+				gumballMonitor.report();
 		}
 }

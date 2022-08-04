@@ -1,16 +1,16 @@
-package design.pattern.state.state;
+package design.pattern.proxy.state;
 
-import design.pattern.state.GumballMachine;
+import design.pattern.proxy.GumballMachine;
 
 /**
  * 동전이 없는 상태
  *
  * */
-public class NoQuarterState implements State {
+public class SoldOutState implements State {
 		
 		GumballMachine gumballMachine;
 		
-		public NoQuarterState( GumballMachine gumballMachine ) {
+		public SoldOutState( GumballMachine gumballMachine ) {
 				this.gumballMachine = gumballMachine;
 		}
 		
@@ -18,7 +18,7 @@ public class NoQuarterState implements State {
 		public void insertQuarter() {
 			
 				System.out.println( "동전을 넣으셨습니다." );
-				gumballMachine.setState( gumballMachine.getHasQuarterState() );
+				gumballMachine.setState( gumballMachine.getNoQuarterState() );
 		}
 		
 		@Override
@@ -28,7 +28,7 @@ public class NoQuarterState implements State {
 		
 		@Override
 		public void turnCrank() {
-				System.out.println( "동전을 넣어주세요." );
+				System.out.println( "매진되었습니다. 다음에 이용해주세요." );
 		}
 		
 		@Override
